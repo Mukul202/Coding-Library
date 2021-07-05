@@ -1,4 +1,3 @@
-
 class heap
 {
   int capacity;
@@ -57,7 +56,6 @@ void heap::minheapify(int i){
     swap(heap_arr[i],heap_arr[smallest]);
     minheapify(smallest);
   }
-
 }
 
 void heap::deletekey(int index){
@@ -68,7 +66,7 @@ void heap::deletekey(int index){
 void heap::decreasekey(int index,int new_val){
   heap_arr[index]=new_val;
   while(index!=0 && heap_arr[parent(index)]>heap_arr[index]){
-    swap(heap_arr[parent(index)],heap_arr[index]);
+    swap(heap_arr[index],heap_arr[parent(index)]);
     index=parent(index);
   }
 }
@@ -80,8 +78,26 @@ int heap::extractMin(){
     heap_size--;
     return heap_arr[0];
   }
-  int root=heap_arr[heap_size-1];
+  int root=heap_arr[0];
+  heap_arr[0]=heap_arr[heap_size-1];
   heap_size--;
   minheapify(0);
   return root;
+}
+
+void heap::insertkey(int val){
+  if(heap_size==capacity){
+    cout<<"\nOverflow:\n";
+    return ;
+  }
+  heap_size++;
+  int i=heap_size-1;
+  heap_arr[i]=val;
+
+  while(i!=0 && heap_arr[parent(i)]>heap_arr[i]){
+    swap(heap_arr[parent(i)],heap_arr[i]);
+    i=parent(i);
+    deb(i);
+  }
+
 }
